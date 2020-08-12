@@ -1,4 +1,4 @@
-# Variational Autoencoders
+# Variational Autoencoder
 
 The code here is for the most part just copied from the resources below. 
 
