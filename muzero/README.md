@@ -1,6 +1,6 @@
 # muzero
 
-Walking through the muzero paper and its pseudocode. 
+Walking through the muzero paper and its pseudocode.
 
 Links:
 - [paper](https://arxiv.org/abs/1911.08265)
