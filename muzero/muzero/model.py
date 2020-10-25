@@ -9,7 +9,7 @@ https://github.com/geohot/ai-notebooks/blob/master/muzero/model.py
 """
 
 
-def one_hot(action, action_dim):
+def one_hot(action: int, action_dim: int) -> np.array:
     action_enc = np.zeros([action_dim])
     if action > -1:
         action_enc[action] = 1

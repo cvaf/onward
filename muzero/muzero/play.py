@@ -1,4 +1,4 @@
-from . import Node, MinMaxStats
+from .game import Node, MinMaxStats
 import numpy as np
 import random
 from .model import one_hot, extract_output
@@ -19,7 +19,7 @@ def play_game(config, network):
     while not game.terminal() and len(game.history) < config.max_moves:
 
         root = Node(0)  # Initiate a new root
-        current_observation = game.make_image(-1)
+        current_observation = game.make_image(-1)  # Return the latest state observation
         expand_node(
             root,
             game.to_play(),
@@ -74,6 +74,7 @@ def run_mcts(config, root, action_history, network):
             one_hot(history.last_action(), config.action_space_size)[None],
         )
         # Why is parent.to_play negative? What happens if only 1 player?
+        # TODO: This might need editing for single-player games.
         expand_node(node, -parent.to_play, history.action_space(), network_output)
         value, _, _, _ = extract_output(network_output)
 
@@ -110,17 +111,18 @@ def ucb_score(config, parent, child, min_max_stats):
         + config.pb_c_init
     )
     pb_c *= np.sqrt(parent.visit_count) / (child.visit_count + 1)
-
     prior_score = pb_c * child.prior
+
     if child.visit_count > 0:
         if not min_max_stats:
-            value_score = child.reward + config.discount * min_max_stats.normalize(
-                child.value()
+            value_score = child.reward + (
+                config.discount * min_max_stats.normalize(child.value())
             )
         else:
-            value_score = child.reward + config.discount * child.value()
+            value_score = child.reward + (config.discount * child.value())
     else:
         value_score = 0
+
     return prior_score + value_score
 
 
