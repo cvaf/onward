@@ -127,17 +127,6 @@ class Network:
         return loss
 
 
-# def reshape_X(X):
-#   obs = [x[0] for x in X]
-#   acts = [x[1:] for x in X]
-#   return [obs, acts]
-
-# def reshape_Y(Y):
-#   for y in Y:
-#     y.pop(1)
-#   return Y
-
-
 def reshape(array):
     array_t = [[x] for x in array[0]]
     for i in range(1, len(array)):

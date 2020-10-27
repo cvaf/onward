@@ -63,7 +63,7 @@ class ReplayBuffer:
             (
                 g.make_image(i),  # image
                 g.sample_history(i, num_unroll_steps),  # actions
-                g.make_target(i, num_unroll_steps, td_steps, g.to_play(i)),  # targets
+                g.make_target(i, num_unroll_steps, td_steps),  # targets
             )
             for (g, i) in game_positions
         ]

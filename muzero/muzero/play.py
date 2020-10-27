@@ -73,7 +73,6 @@ def run_mcts(config, root, action_history, network):
             parent.hidden_state[None],
             one_hot(history.last_action(), config.action_space_size)[None],
         )
-        # Why is parent.to_play negative? What happens if only 1 player?
         # TODO: This might need editing for single-player games.
         expand_node(node, -parent.to_play, history.action_space(), network_output)
         value, _, _, _ = extract_output(network_output)
@@ -128,8 +127,8 @@ def ucb_score(config, parent, child, min_max_stats):
 
 def backpropagate(search_path, value, to_play, discount, min_max_stats):
     for node in search_path[::-1]:
-        # node.value_sum += value if node.to_play == to_play else -value
-        node.value_sum += value
+        # TODO: Remove this comment if more than 1 players.
+        node.value_sum += value  # if node.to_play == to_play else -value
         node.visit_count += 1
         min_max_stats.update(node.value())
 

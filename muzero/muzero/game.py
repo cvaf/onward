@@ -1,5 +1,5 @@
-from numpy import array, copy
-from deepcopy import deepcopy
+from numpy import array
+from copy import copy, deepcopy
 
 
 class Action:
